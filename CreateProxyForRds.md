@@ -28,6 +28,7 @@ stream {
 
 root@ip-172-31-0-254:/etc/nginx# service nginx restart
 
+```
 root@ip-172-31-3-220:/root# mysql -uOSHOP -h172.31.0.254 -p -e "show databases";
 Enter password:
 +--------------------+
@@ -39,6 +40,7 @@ Enter password:
 | mysql              |
 | performance_schema |
 +--------------------+
+```
 
 
 
