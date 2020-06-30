@@ -1,6 +1,9 @@
+**Connect to MariaDB on EC through Proxy**
 
 root@ip-172-31-0-254:/etc/nginx# apt-get install nginx
+
 root@ip-172-31-0-254:/etc/nginx# cp nginx.conf ~/backup/.
+
 ```
 root@ip-172-31-0-254:/etc/nginx# diff ~/backup/nginx.conf ./nginx.conf
 64a65,70
@@ -12,6 +15,7 @@ root@ip-172-31-0-254:/etc/nginx# diff ~/backup/nginx.conf ./nginx.conf
 > }
 ```
 
+'''
 ---
 stream {
 	server {
@@ -20,6 +24,7 @@ stream {
 	}
 }
 ---
+'''
 
 root@ip-172-31-0-254:/etc/nginx# service nginx restart
 
