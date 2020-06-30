@@ -1,6 +1,7 @@
 
 root@ip-172-31-0-254:/etc/nginx# apt-get install nginx
 root@ip-172-31-0-254:/etc/nginx# cp nginx.conf ~/backup/.
+```
 root@ip-172-31-0-254:/etc/nginx# diff ~/backup/nginx.conf ./nginx.conf
 64a65,70
 > stream {
@@ -9,6 +10,7 @@ root@ip-172-31-0-254:/etc/nginx# diff ~/backup/nginx.conf ./nginx.conf
 > 		proxy_pass 172.31.18.102:3306;
 > 	}
 > }
+```
 
 ---
 stream {
