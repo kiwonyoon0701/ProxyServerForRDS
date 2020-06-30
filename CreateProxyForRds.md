@@ -15,7 +15,7 @@ root@ip-172-31-0-254:/etc/nginx# diff ~/backup/nginx.conf ./nginx.conf
 > }
 ```
 
-'''
+```
 ---
 stream {
 	server {
@@ -24,7 +24,7 @@ stream {
 	}
 }
 ---
-'''
+```
 
 root@ip-172-31-0-254:/etc/nginx# service nginx restart
 
