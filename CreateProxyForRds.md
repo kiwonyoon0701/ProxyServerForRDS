@@ -13,15 +13,21 @@ root@ip-172-31-0-254:/etc/nginx# diff ~/backup/nginx.conf ./nginx.conf
 > 		proxy_pass 172.31.18.102:3306;
 > 	}
 > }
+
+------------------------------------------
 stream {
 	server {
 		listen	3306;
 		proxy_pass 172.31.18.102:3306;
 	}
 }
+------------------------------------------
 ```
 
 root@ip-172-31-0-254:/etc/nginx# service nginx restart
+
+
+**Connection test MariaDB on EC2 through nginx Proxy**
 
 ```
 root@ip-172-31-3-220:/root# mysql -uOSHOP -h172.31.0.254 -p -e "show databases";
