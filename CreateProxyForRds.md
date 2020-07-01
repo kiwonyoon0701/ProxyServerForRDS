@@ -53,6 +53,7 @@ root@ip-172-31-3-220:/root# mysql -uadmin  -h172.31.0.254 -p
 AWS RDS many connection errors; unblock with 'mysqladmin flush-hosts'
 
 [Solution]
+`Connect to RDS and execute following commands`
 FLUSH HOSTS;
 ```
 
