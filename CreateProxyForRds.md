@@ -23,7 +23,7 @@ stream {
 }
 ------------------------------------------
 
-root@ip-172-31-0-254:/etc/nginx# service nginx restart
+root@ip-172-31-0-254:/root# systemctl restart nginx.service
 ```
 
 
@@ -53,7 +53,7 @@ root@ip-172-31-3-220:/root# mysql -uadmin  -h172.31.0.254 -p
 AWS RDS many connection errors; unblock with 'mysqladmin flush-hosts'
 
 [Solution]
-`Connect to RDS and execute following commands`
+# Connect to RDS and execute following commands
 FLUSH HOSTS;
 ```
 
@@ -63,6 +63,8 @@ root@ip-172-31-3-220:/root# mysql -uadmin  -h172.31.0.254 -p
 
 
 **Oracle RDS**
+
+```
 root@ip-172-31-0-254:/root# cat /etc/nginx/nginx.conf
 user www-data;
 worker_processes auto;
@@ -130,14 +132,21 @@ http {
 
 stream {
 	server {
-		#listen	3306;
-		#proxy_pass mysql.cf89zyffo8dr.ap-northeast-2.rds.amazonaws.com:3306;
-		listen	1521;
-		proxy_pass oracle-ee-1120424.cf89zyffo8dr.ap-northeast-2.rds.amazonaws.com:1521;
+		listen	3306;
+		proxy_pass mysql.cf89zyffo8dr.ap-northeast-2.rds.amazonaws.com:3306;
 	}
 }
 
-root@ip-172-31-0-254:/root# service nginx restart
+root@ip-172-31-0-254:/root# systemctl restart nginx.service
+
+root@ip-172-31-3-220:/root# mysql -uadmin  -h172.31.0.254 -p RDS_MARIADB -e "select * from t1;"
+Enter password:
++------+
+| id   |
++------+
+|    1 |
++------+
+```
 
 root@ip-172-31-3-220:/root/instantclient_19_6/network/admin# cat tnsnames.ora
 rds =
