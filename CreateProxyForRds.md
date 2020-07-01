@@ -3,6 +3,8 @@ Clients are able to access RDS instance using static IP through proxy server.
 Please press 'Like' & 'Subscribe' and 'Alarm'!!! ;)   
 
 ```
+Server Information 
+===================================================================
 Proxy Server : 172.31.0.254
 MariaDB on EC2 : 172.31.18.102
 RDS MariaDB : mysql.cf89XXXXXXXX.ap-northeast-2.rds.amazonaws.com
