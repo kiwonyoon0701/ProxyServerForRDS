@@ -47,24 +47,6 @@ Enter password:
 
 **Connection Test to RDS MariaDB through proxy**
 ```
-root@ip-172-31-3-220:/root# mysql -uadmin  -h172.31.0.254 -p
-
-[Error Log]
-AWS RDS many connection errors; unblock with 'mysqladmin flush-hosts'
-
-[Solution]
-# Connect to RDS and execute following commands
-FLUSH HOSTS;
-```
-
-
-root@ip-172-31-3-220:/root# mysql -uadmin  -h172.31.0.254 -p
-
-
-
-**Oracle RDS**
-
-```
 root@ip-172-31-0-254:/root# cat /etc/nginx/nginx.conf
 user www-data;
 worker_processes auto;
@@ -146,6 +128,16 @@ Enter password:
 +------+
 |    1 |
 +------+
+
+root@ip-172-31-3-220:/root# mysql -uadmin  -h172.31.0.254 -p
+
+[Error Log]
+AWS RDS many connection errors; unblock with 'mysqladmin flush-hosts'
+
+[Solution]
+# Connect to RDS and execute following commands
+FLUSH HOSTS;
+
 ```
 
 root@ip-172-31-3-220:/root/instantclient_19_6/network/admin# cat tnsnames.ora
