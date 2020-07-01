@@ -45,12 +45,16 @@ Enter password:
 
 
 
-RDS
+**Connection Test to RDS MariaDB through proxy**
+```
+root@ip-172-31-3-220:/root# mysql -uadmin  -h172.31.0.254 -p
 
-[Error]
+[Error Log]
 AWS RDS many connection errors; unblock with 'mysqladmin flush-hosts'
+
 [Solution]
 FLUSH HOSTS;
+```
 
 
 root@ip-172-31-3-220:/root# mysql -uadmin  -h172.31.0.254 -p
