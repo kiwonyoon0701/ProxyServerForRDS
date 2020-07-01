@@ -129,6 +129,7 @@ Enter password:
 |    1 |
 +------+
 
+### Error Case ###
 root@ip-172-31-3-220:/root# mysql -uadmin  -h172.31.0.254 -p
 
 [Error Log]
