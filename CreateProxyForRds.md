@@ -13,17 +13,12 @@ root@ip-172-31-0-254:/etc/nginx# diff ~/backup/nginx.conf ./nginx.conf
 > 		proxy_pass 172.31.18.102:3306;
 > 	}
 > }
-```
-
-```
----
 stream {
 	server {
 		listen	3306;
 		proxy_pass 172.31.18.102:3306;
 	}
 }
----
 ```
 
 root@ip-172-31-0-254:/etc/nginx# service nginx restart
@@ -136,7 +131,7 @@ root@ip-172-31-0-254:/root# service nginx restart
 root@ip-172-31-3-220:/root/instantclient_19_6/network/admin# cat tnsnames.ora
 rds =
   (DESCRIPTION =
-    (ADDRESS = (PROTOCOL = TCP)(HOST = oracle-ee-1120424.cf89zyffo8dr.ap-northeast-2.rds.amazonaws.com)(PORT = 1521))
+    (ADDRESS = (PROTOCOL = TCP)(HOST = oracle-ee-1120424.cf89XXXXXXX.ap-northeast-2.rds.amazonaws.com)(PORT = 1521))
     (CONNECT_DATA =
       (SERVER = DEDICATED)
       (SID=sales)
