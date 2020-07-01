@@ -115,7 +115,7 @@ http {
 stream {
 	server {
 		listen	3306;
-		proxy_pass mysql.cf89zyffo8dr.ap-northeast-2.rds.amazonaws.com:3306;
+		proxy_pass mysql.cf89XXXXXXXX.ap-northeast-2.rds.amazonaws.com:3306;
 	}
 }
 
@@ -173,11 +173,11 @@ SQL>
 stream {
 	server {
 		#listen	3306;
-		#proxy_pass mysql.cf89zyffo8dr.ap-northeast-2.rds.amazonaws.com:3306;
+		#proxy_pass mysql.cf89XXXXXXXX.ap-northeast-2.rds.amazonaws.com:3306;
 		#listen	1521;
-		#proxy_pass oracle-ee-1120424.cf89zyffo8dr.ap-northeast-2.rds.amazonaws.com:1521;
+		#proxy_pass oracle-ee-1120424.cf89XXXXXXXX.ap-northeast-2.rds.amazonaws.com:1521;
 		listen	1433;
-		proxy_pass mssql-ee.cf89zyffo8dr.ap-northeast-2.rds.amazonaws.com:1433;
+		proxy_pass mssql-ee.cf89XXXXXXXX.ap-northeast-2.rds.amazonaws.com:1433;
 	}
 }
 
