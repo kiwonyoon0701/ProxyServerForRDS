@@ -1,6 +1,6 @@
-This document describes how to create proxy server in front of RDS to access RDS with static ip.
-Clients are able to access RDS instance using static IP through proxy server.
-Please press 'Like' & 'Subscribe' and 'Alarm'!!! ;)
+This document describes how to create proxy server in front of RDS to access RDS with static ip.     
+Clients are able to access RDS instance using static IP through proxy server.   
+Please press 'Like' & 'Subscribe' and 'Alarm'!!! ;)   
 
 **Connect to MariaDB on EC through Proxy**
 
