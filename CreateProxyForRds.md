@@ -6,8 +6,39 @@ Please press 'Like' & 'Subscribe' and 'Alarm'!!! ;)
 Server Information
 ===================================================================
 Proxy Server : 172.31.0.254
+root@ip-172-31-0-254:/root# grep . /etc/*-release
+/etc/lsb-release:DISTRIB_ID=Ubuntu
+/etc/lsb-release:DISTRIB_RELEASE=16.04
+/etc/lsb-release:DISTRIB_CODENAME=xenial
+/etc/lsb-release:DISTRIB_DESCRIPTION="Ubuntu 16.04.6 LTS"
+/etc/os-release:NAME="Ubuntu"
+/etc/os-release:VERSION="16.04.6 LTS (Xenial Xerus)"
+/etc/os-release:ID=ubuntu
+/etc/os-release:ID_LIKE=debian
+/etc/os-release:PRETTY_NAME="Ubuntu 16.04.6 LTS"
+/etc/os-release:VERSION_ID="16.04"
+/etc/os-release:HOME_URL="http://www.ubuntu.com/"
+/etc/os-release:SUPPORT_URL="http://help.ubuntu.com/"
+/etc/os-release:BUG_REPORT_URL="http://bugs.launchpad.net/ubuntu/"
+/etc/os-release:VERSION_CODENAME=xenial
+/etc/os-release:UBUNTU_CODENAME=xenial
+
 MariaDB on EC2 : 172.31.18.102
 RDS MariaDB : mysql.cf89XXXXXXXX.ap-northeast-2.rds.amazonaws.com
+
+MariaDB Client & Oracle Client & MsSQL Client : 172.31.3.220
+root@ip-172-31-3-220:/root# grep . /etc/*-release
+/etc/os-release:NAME="Amazon Linux AMI"
+/etc/os-release:VERSION="2018.03"
+/etc/os-release:ID="amzn"
+/etc/os-release:ID_LIKE="rhel fedora"
+/etc/os-release:VERSION_ID="2018.03"
+/etc/os-release:PRETTY_NAME="Amazon Linux AMI 2018.03"
+/etc/os-release:ANSI_COLOR="0;33"
+/etc/os-release:CPE_NAME="cpe:/o:amazon:linux:2018.03:ga"
+/etc/os-release:HOME_URL="http://aws.amazon.com/amazon-linux-ami/"
+/etc/system-release:Amazon Linux AMI release 2018.03
+
 ```
 
 **Connect to MariaDB on EC through Proxy**
