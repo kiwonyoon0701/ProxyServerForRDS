@@ -158,6 +158,7 @@ FLUSH HOSTS;
 Proxy Setup for RDS Oracle
 ```
 
+```
 root@ip-172-31-3-220:/root/instantclient_19_6/network/admin# cat tnsnames.ora
 rds =
   (DESCRIPTION =
@@ -184,6 +185,7 @@ SQL>
 root@ip-172-31-3-220:/root# sqlplus admin@rds-proxy
 
 SQL>
+```
 
 
 **MSSQL on OEL**
