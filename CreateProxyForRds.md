@@ -154,9 +154,10 @@ FLUSH HOSTS;
 
 ```
 
-```
-Proxy Setup for RDS Oracle
-```
+
+    
+**Proxy Setup for RDS Oracle**
+
 
 ```
 root@ip-172-31-3-220:/root/instantclient_19_6/network/admin# cat tnsnames.ora
