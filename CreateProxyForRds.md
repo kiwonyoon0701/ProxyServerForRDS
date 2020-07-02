@@ -322,3 +322,46 @@ id
 (8 rows affected)
 
 ```
+
+**Tomcat Connection Pool with Proxy**
+
+```
+root@ip-172-31-3-220:/root# yum install tomcat8
+root@ip-172-31-3-220:/root# cp /etc/tomcat8/server.xml ./backup/.
+root@ip-172-31-3-220:/root# cp /etc/tomcat8/context.xml ~/backup/.
+root@ip-172-31-3-220:/root# cp /etc/tomcat8/web.xml ~/backup/.
+
+root@ip-172-31-3-220:/root# vi /etc/tomcat8/context.xml
+root@ip-172-31-3-220:/root# cat /etc/tomcat8/context.xml
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<!-- The contents of this file will be loaded for each web application -->
+<Context>
+<Resource name="jdbc/TestDB" auth="Container" type="javax.sql.DataSource" maxTotal="100" maxIdle="30" maxWaitMillis="10000" username="admin" password="" driverClassName="com.mysql.jdbc.Driver" url="jdbc:mysql://mysql.cf89zyffo8dr.ap-northeast-2.rds.amazonaws.com:3306/SCOTT"/>
+
+    <!-- Default set of monitored resources. If one of these changes, the    -->
+    <!-- web application will be reloaded.                                   -->
+    <WatchedResource>WEB-INF/web.xml</WatchedResource>
+    <WatchedResource>${catalina.base}/conf/web.xml</WatchedResource>
+
+    <!-- Uncomment this to disable session persistence across Tomcat restarts -->
+    <!--
+    <Manager pathname="" />
+    -->
+</Context>
+```
