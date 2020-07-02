@@ -1,15 +1,14 @@
-This document describes how to create proxy server in front of RDS to access RDS with static ip.     
-Clients are able to access RDS instance using static IP through proxy server.   
-Please press 'Like' & 'Subscribe' and 'Alarm'!!! ;)   
+This document describes how to create proxy server in front of RDS to access RDS with static ip.  
+Clients are able to access RDS instance using static IP through proxy server.  
+Please press 'Like' & 'Subscribe' and 'Alarm'!!! ;)
 
 ```
-Server Information 
+Server Information
 ===================================================================
 Proxy Server : 172.31.0.254
 MariaDB on EC2 : 172.31.18.102
 RDS MariaDB : mysql.cf89XXXXXXXX.ap-northeast-2.rds.amazonaws.com
 ```
-
 
 **Connect to MariaDB on EC through Proxy**
 
@@ -39,7 +38,6 @@ stream {
 root@ip-172-31-0-254:/root# systemctl restart nginx.service
 ```
 
-
 **Connection test MariaDB on EC2 through nginx Proxy**
 
 ```
@@ -56,9 +54,8 @@ Enter password:
 +--------------------+
 ```
 
-
-
 **Connection Test to RDS MariaDB through proxy**
+
 ```
 root@ip-172-31-0-254:/root# cat /etc/nginx/nginx.conf
 user www-data;
@@ -154,13 +151,20 @@ FLUSH HOSTS;
 
 ```
 
-
-              
-
 **Proxy Setup for RDS Oracle**
 
-
 ```
+root@ip-172-31-0-254:/etc/nginx# cat nginx.conf
+...
+stream {
+	server {
+		listen	1521;
+		proxy_pass oracle-ee-1120424.cf89XXXXXXXX.ap-northeast-2.rds.amazonaws.com:1521;
+	}
+}
+root@ip-172-31-0-254:/root# systemctl restart nginx.service
+
+
 root@ip-172-31-3-220:/root/instantclient_19_6/network/admin# cat tnsnames.ora
 rds =
   (DESCRIPTION =
@@ -180,26 +184,66 @@ rds-proxy =
     )
   )
 
-root@ip-172-31-3-220:/root# sqlplus admin@rds
+root@ip-172-31-3-220:/root/instantclient_19_6/network/admin# sqlplus admin@rds
+SQL> select instance_name from v$instance;
 
-SQL>
+INSTANCE_NAME
+----------------
+SALES
+
+SQL> create table t1 (id number, name varchar2(100));
+
+Table created.
+
+SQL> insert into t1 values (&id, '&name');
+Enter value for id: 1
+Enter value for name: kiwon
+1 row created.
+
+SQL> insert into t1 values (&id, '&name');
+Enter value for id: 2
+Enter value for name: john
+1 row created.
+
+SQL> commit;
+Commit complete.
+
+SQL> select * from t1;
+
+	ID NAME
+----------------------------------------------
+	 1 kiwon
+	 2 john
+
 
 root@ip-172-31-3-220:/root# sqlplus admin@rds-proxy
+Enter password:
 
-SQL>
+SQL>  select instance_name from v$instance;
+
+INSTANCE_NAME
+----------------
+SALES
+
+SQL> select * from t1;
+
+	ID NAME
+----------------------------------------------
+	 1 kiwon
+	 2 john
+
 ```
-
 
 **MSSQL on OEL**
 stream {
-	server {
-		#listen	3306;
-		#proxy_pass mysql.cf89XXXXXXXX.ap-northeast-2.rds.amazonaws.com:3306;
-		#listen	1521;
-		#proxy_pass oracle-ee-1120424.cf89XXXXXXXX.ap-northeast-2.rds.amazonaws.com:1521;
-		listen	1433;
-		proxy_pass mssql-ee.cf89XXXXXXXX.ap-northeast-2.rds.amazonaws.com:1433;
-	}
+server {
+#listen 3306;
+#proxy_pass mysql.cf89XXXXXXXX.ap-northeast-2.rds.amazonaws.com:3306;
+#listen 1521;
+#proxy_pass oracle-ee-1120424.cf89XXXXXXXX.ap-northeast-2.rds.amazonaws.com:1521;
+listen 1433;
+proxy_pass mssql-ee.cf89XXXXXXXX.ap-northeast-2.rds.amazonaws.com:1433;
+}
 }
 
 root@ip-172-31-0-254:/root# service nginx restart
@@ -210,11 +254,13 @@ Password: Sqlcmd: Error: Microsoft ODBC Driver 17 for SQL Server : Login failed 
 C:\Users\Administrator>sqlcmd -S 172.31.0.254 -U admin
 Password:
 1> use sales;
-2> select * from t1;
+2> select \* from t1;
 3> go
 Changed database context to 'sales'.
 id
------------
+
+---
+
           1
           1
           2
