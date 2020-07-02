@@ -235,36 +235,59 @@ SQL> select * from t1;
 ```
 
 **MSSQL on OEL**
+
+```
+root@ip-172-31-0-254:/root# cat /etc/nginx/nginx.conf
+...
 stream {
-server {
-#listen 3306;
-#proxy_pass mysql.cf89XXXXXXXX.ap-northeast-2.rds.amazonaws.com:3306;
-#listen 1521;
-#proxy_pass oracle-ee-1120424.cf89XXXXXXXX.ap-northeast-2.rds.amazonaws.com:1521;
-listen 1433;
-proxy_pass mssql-ee.cf89XXXXXXXX.ap-northeast-2.rds.amazonaws.com:1433;
+	server {
+		listen	1433;
+		proxy_pass mssql-ee-1120424.cf89XXXXXXXX.ap-northeast-2.rds.amazonaws.com:1433;
+	}
 }
-}
+root@ip-172-31-0-254:/root# systemctl restart nginx.service
 
-root@ip-172-31-0-254:/root# service nginx restart
+root@ip-172-31-3-220:/root# sudo ACCEPT_EULA=Y yum install mssql-tools unixODBC-devel -y --disablerepo=amzn*
 
-C:\Users\Administrator>sqlcmd -S 172.31.0.254 -U admin
-Password: Sqlcmd: Error: Microsoft ODBC Driver 17 for SQL Server : Login failed for user 'admin'..
+root@ip-172-31-3-220:/root# echo 'export PATH="$PATH:/opt/mssql-tools/bin"' >> ~/.bash_profile
+root@ip-172-31-3-220:/root# echo 'export PATH="$PATH:/opt/mssql-tools/bin"' >> ~/.bashrc
+root@ip-172-31-3-220:/root# source ~/.bashrc
 
-C:\Users\Administrator>sqlcmd -S 172.31.0.254 -U admin
+root@ip-172-31-3-220:/root# sqlcmd -S 172.31.0.254 -U admin
 Password:
 1> use sales;
-2> select \* from t1;
+2> select * from t1;
 3> go
 Changed database context to 'sales'.
 id
-
----
-
+-----------
           1
           1
           2
           2
           3
+         99
+         88
 
-(5 rows affected)
+(7 rows affected)
+
+1> insert into t1 values (777);
+2> commit;
+3> go
+
+1> select * from t1;
+2> go
+id
+-----------
+          1
+          1
+          2
+          2
+          3
+         99
+         88
+        777
+
+(8 rows affected)
+
+```
