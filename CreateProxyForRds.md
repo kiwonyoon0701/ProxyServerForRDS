@@ -326,42 +326,73 @@ id
 **Tomcat Connection Pool with Proxy**
 
 ```
-root@ip-172-31-3-220:/root# yum install tomcat8
-root@ip-172-31-3-220:/root# cp /etc/tomcat8/server.xml ./backup/.
-root@ip-172-31-3-220:/root# cp /etc/tomcat8/context.xml ~/backup/.
-root@ip-172-31-3-220:/root# cp /etc/tomcat8/web.xml ~/backup/.
+root@ip-172-31-5-125:/var/lib/tomcat8/webapps/ROOT# cat dbCon.jsp
+<%@ page language="java" import="java.sql.*" %>
+<%
+String DB_HOST_IP="172.31.0.254";
+String DB_URL = "jdbc:oracle:thin:@" + DB_HOST_IP + ":1521:sales";
+String DB_USER = "oshop";
+String DB_PASSWORD = "PASSWORD";
+Connection con = null;
+Statement stmt = null;
+ResultSet rs = null;
+String sql=null;
+try
+ {
+ Class.forName("oracle.jdbc.driver.OracleDriver");
+ con = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+ out.println("Oracle Database Connected!");
+ }catch(SQLException e){out.println(e);}
+%>
 
-root@ip-172-31-3-220:/root# vi /etc/tomcat8/context.xml
-root@ip-172-31-3-220:/root# cat /etc/tomcat8/context.xml
-<?xml version="1.0" encoding="UTF-8"?>
+
+root@ip-172-31-5-125:/var/lib/tomcat8/webapps/ROOT# cat dbconnection.jsp
+<%@ page contentType="text/html; charset=UTF-8" %>
+<%@ include file="dbCon.jsp" %> <!-- dbCon.jsp import -->
+<%@ page import="java.util.*,java.text.*"%>
+<html>
+<head>
+<title>test</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link title=menustyle href="../adminstyle.css" type="text/css" rel="stylesheet">
+<script language="JavaScript">
 <!--
-  Licensed to the Apache Software Foundation (ASF) under one or more
-  contributor license agreements.  See the NOTICE file distributed with
-  this work for additional information regarding copyright ownership.
-  The ASF licenses this file to You under the Apache License, Version 2.0
-  (the "License"); you may not use this file except in compliance with
-  the License.  You may obtain a copy of the License at
+ function MM_openBrWindow(theURL,winName,features){
+ window.open(theURL,winName,features);
+ }
+//-->
+</script>
+</head>
 
-      http://www.apache.org/licenses/LICENSE-2.0
 
-  Unless required by applicable law or agreed to in writing, software
-  distributed under the License is distributed on an "AS IS" BASIS,
-  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  See the License for the specific language governing permissions and
-  limitations under the License.
--->
-<!-- The contents of this file will be loaded for each web application -->
-<Context>
-<Resource name="jdbc/TestDB" auth="Container" type="javax.sql.DataSource" maxTotal="100" maxIdle="30" maxWaitMillis="10000" username="admin" password="" driverClassName="com.mysql.jdbc.Driver" url="jdbc:mysql://mysql.cf89zyffo8dr.ap-northeast-2.rds.amazonaws.com:3306/SCOTT"/>
+<body bgcolor="#FFFFFF" text="#000000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+<table width="630" border="0" cellspacing="0" cellpadding="0">
+<BR>
+<HR>
 
-    <!-- Default set of monitored resources. If one of these changes, the    -->
-    <!-- web application will be reloaded.                                   -->
-    <WatchedResource>WEB-INF/web.xml</WatchedResource>
-    <WatchedResource>${catalina.base}/conf/web.xml</WatchedResource>
+ <%
+String ServerIP = request.getLocalAddr();
+out.println("<B><U><Font size=6>Tomcat Server IP : " + ServerIP+"<BR><HR></font></U></B>");
+ sql="select ENAME, JOB, MGR, HIREDATE from emp";
 
-    <!-- Uncomment this to disable session persistence across Tomcat restarts -->
-    <!--
-    <Manager pathname="" />
-    -->
-</Context>
+  stmt = con.createStatement();
+  rs = stmt.executeQuery(sql);
+
+  while(rs.next()) {
+          String name=rs.getString("ENAME");
+          String job=rs.getString("JOB");
+          String mgr=rs.getString("MGR");
+          String hiredate=rs.getString("HIREDATE");
+          out.println(" ENAME : "+name+" JOB : "+job+" MRG :"+mgr+" DATE :"+hiredate+" <hr>");
+ }
+
+    if(rs != null) rs.close();
+    if(stmt != null)stmt.close();
+    if(con != null)con.close();
+ %>
+
+</body>
+</html>
+
+
 ```
