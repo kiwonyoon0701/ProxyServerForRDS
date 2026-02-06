@@ -394,6 +394,10 @@ out.println("<B><U><Font size=6>Tomcat Server IP : " + ServerIP+"<BR><HR></font>
 </body>
 </html>
 
+root@ip-172-31-5-125:/root# curl http://169.254.169.254/latest/meta-data/public-hostname
+ec2-52-78-247-211.ap-northeast-2.compute.amazonaws.com
+
+
 
 ```
 
